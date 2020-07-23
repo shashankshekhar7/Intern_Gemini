@@ -15,6 +15,7 @@ public class SessionManager {
   SharedPreferences pref;
   Editor editor;
   Context context;
+  //int PRIVATE_MODE = 1;
   int PRIVATE_MODE = 0;
 
   private SessionManager(Context context) {

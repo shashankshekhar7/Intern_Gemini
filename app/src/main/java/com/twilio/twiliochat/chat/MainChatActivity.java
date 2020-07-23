@@ -61,9 +61,19 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
   private MenuItem deleteChannelMenuItem;
   private SwipeRefreshLayout refreshLayout;
 
+  //new
+  private Button switchToPr;
+  private Button switchToPu;
+
   @Override
   protected void onDestroy() {
     super.onDestroy();
+
+    //added for debugging
+    //leaveCurrentChannel();
+    //SessionManager.getInstance().logoutUser();
+    //did not work
+
     new Handler().post(new Runnable() {
       @Override
       public void run() {
@@ -101,6 +111,10 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
     usernameTextView = (TextView) findViewById(R.id.textViewUsername);
     channelsListView = (ListView) findViewById(R.id.listViewChannels);
 
+    //new
+    switchToPr = (Button) findViewById(R.id.switchPrivate);
+    switchToPu = (Button) findViewById(R.id.switchPublic);
+    //
     channelManager = ChannelManager.getInstance();
     setUsernameTextView();
 
@@ -132,6 +146,38 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         setChannel(position);
+      }
+    });
+
+    //new for switching to private
+    switchToPr.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        switchToprivate();
+      }
+    });
+
+    //new switching to public
+    switchToPu.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        refreshChannels();
+      }
+    });
+  }
+
+  //new function to view private channels
+  public void switchToprivate(){
+    channelManager.populateUserChannels(new LoadChannelListener() {
+      @Override
+      public void onChannelsFinishedLoading(final List<Channel> channels) {
+        runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+            channelAdapter.setChannels(channels);
+            refreshLayout.setRefreshing(false);
+          }
+        });
       }
     });
   }
@@ -225,8 +271,19 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
     if (channels == null) {
       return;
     }
+
     final Channel currentChannel = chatFragment.getCurrentChannel();
     final Channel selectedChannel = channels.get(position);
+
+    //added to invite agent
+    selectedChannel.getMembers().inviteByIdentity("agent1", new StatusListener() {
+      @Override
+      public void onSuccess() {
+        Log.d(TwilioChatApplication.TAG,"User Invited!");
+      }
+    });
+    //
+
     if (currentChannel != null && currentChannel.getSid().contentEquals(selectedChannel.getSid())) {
       drawer.closeDrawer(GravityCompat.START);
       return;
@@ -308,10 +365,11 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
       showAlertWithMessage(getStringResource(R.string.channel_name_equals_default_name));
       return;
     }
+    //changed type to private in createChannelWithName
     this.channelManager.createChannelWithName(name, new StatusListener() {
       @Override
       public void onSuccess() {
-        refreshChannels();
+        switchToprivate();
       }
 
       @Override
@@ -338,7 +396,6 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
       @Override
       public void onSuccess() {
       }
-
       @Override
       public void onError(ErrorInfo errorInfo) {
         showAlertWithMessage(getStringResource(R.string.message_deletion_forbidden));
@@ -399,6 +456,11 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
+
+                //debug
+                leaveCurrentChannel();
+                //worked!!!
+
                 SessionManager.getInstance().logoutUser();
                 showLoginActivity();
               }
@@ -473,9 +535,21 @@ public class MainChatActivity extends AppCompatActivity implements ChatClientLis
     refreshChannels();
   }
 
+  //implemented for invite to private chat
   @Override
-  public void onChannelInvited(Channel channel) {
+  public void onChannelInvited(final Channel channel) {
 
+    //implemented to add agent to the support channel
+    channel.join(new StatusListener() {
+      @Override
+      public void onSuccess() {
+        //extra step to revert him to join channel
+        joinChannel(channel);
+        switchToprivate();
+        //
+        Log.d(TwilioChatApplication.TAG, "Joined Channel: " + channel.getFriendlyName());
+      }
+    });
   }
 
   @Override

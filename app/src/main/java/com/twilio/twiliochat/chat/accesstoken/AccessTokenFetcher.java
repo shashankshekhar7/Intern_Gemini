@@ -33,8 +33,9 @@ public class AccessTokenFetcher {
     String requestUrl = getStringResource(R.string.token_url) + "?identity=" + identity;
     Log.d(TwilioChatApplication.TAG, "Requesting access token from: " + requestUrl);
 
+    //idhar change kiya hai GET ko POST
     JsonObjectRequest jsonObjReq =
-        new JsonObjectRequest(Request.Method.GET, requestUrl, obj, new Response.Listener<JSONObject>() {
+        new JsonObjectRequest(Request.Method.POST, requestUrl, obj, new Response.Listener<JSONObject>() {
 
           @Override
           public void onResponse(JSONObject response) {

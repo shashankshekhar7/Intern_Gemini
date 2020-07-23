@@ -2,25 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark">
-
+                android:background="#f1f1f1">
+<!--
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@drawable/home_bg"/>
-
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/landing_logo"
-        android:contentDescription="@string/logo_text"/>
-
+-->
+    <!--
     <TextView
         android:id="@+id/textViewLine1"
         style="@style/LoginTextView"
@@ -40,11 +31,22 @@
         android:layout_centerHorizontal="true"
         android:text="@string/twilio_second_line"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
+-->
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/gem_logo"
+        android:contentDescription="@string/logo_text" />
 
     <LinearLayout
         android:id="@+id/linearLayoutTextFields"
         style="@style/LoginElementSideMargin"
         android:layout_height="wrap_content"
+        android:layout_width="200dp"
         android:layout_above="@+id/buttonLogin"
         android:background="@color/login_tf_group_gray"
         android:orientation="vertical">
@@ -75,7 +77,9 @@
         android:id="@+id/buttonLogin"
         style="@style/LoginButton"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:background="@color/login_button_background"
-        android:text="@string/login_button_text"/>
+        android:layout_width="200dp"
+        android:layout_marginBottom="70dp"
+        android:background="#660066"
+        android:text="@string/login_button_text"
+        android:textColor="#ffffff"/>
 </RelativeLayout>

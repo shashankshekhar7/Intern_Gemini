@@ -73,10 +73,10 @@
     </style>
 
     <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">#ffffff</item>
         <item name="android:typeface">monospace</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">#660066</item>
     </style>
 
     <style name="MenuHeaderItem">

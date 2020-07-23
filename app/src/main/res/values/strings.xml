@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Twiliochat</string>
+    <string name="app_name">GeminiChat</string>
 
     <!-- Strings related to login -->
     <string name="title_activity_login">Login</string>
@@ -13,6 +13,8 @@
     <string name="login_all_fields_required">All fields are required</string>
     <string name="login_user_progress_message">signing in…</string>
     <string name="register_user_progress_message">registering user…</string>
+
+    <string name="request_support">Request Support</string>
 
     <!-- Strings related to forgot password -->
     <string name="forgot_password_message">
@@ -46,7 +48,7 @@
 
     <string name="default_channel_name">General Channel</string>
     <string name="default_channel_unique_name">general</string>
-    <string name="new_channel_prompt">Enter a name for the new channel:</string>
+    <string name="new_channel_prompt">Enter the type of request</string>
     <string name="generic_error">An error occurred, please try again</string>
     <string name="message_deletion_forbidden">You cannot delete this channel</string>
     <string name="loading_channels_message">Loading channel information</string>

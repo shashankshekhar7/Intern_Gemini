@@ -79,6 +79,8 @@ public class ChannelManager implements ChatClientListener {
       public void run() {
         channelsObject = chatClientManager.getChatClient().getChannels();
 
+        //to view all public channels
+
         channelsObject.getPublicChannelsList(new CallbackListener<Paginator<ChannelDescriptor>>() {
           @Override
           public void onSuccess(Paginator<ChannelDescriptor> channelDescriptorPaginator) {
@@ -86,6 +88,42 @@ public class ChannelManager implements ChatClientListener {
           }
         });
 
+        // changed to view all private channels
+        /*channelsObject.getUserChannelsList(new CallbackListener<Paginator<ChannelDescriptor>>() {
+          @Override
+          public void onSuccess(Paginator<ChannelDescriptor> channelPaginator) {
+            //implementation
+            extractChannelsFromPaginatorAndPopulate(channelPaginator, listener);
+          }
+        });*/
+
+      }
+    });
+  }
+
+  //new method for user channels
+  public void populateUserChannels(final LoadChannelListener listener) {
+    if (this.chatClientManager == null || this.isRefreshingChannels) {
+      return;
+    }
+    this.isRefreshingChannels = true;
+
+    handler.post(new Runnable() {
+      @Override
+      public void run() {
+        channelsObject = chatClientManager.getChatClient().getChannels();
+
+        // changed to view all private channels
+          channelsObject.getUserChannelsList(new CallbackListener<Paginator<ChannelDescriptor>>() {
+          @Override
+          public void onSuccess(Paginator<ChannelDescriptor> channelPaginator) {
+            //implementation
+            int i=0;
+            for (ChannelDescriptor channel : channelPaginator.getItems()) {i++;}
+            if(i!=0)
+              extractChannelsFromPaginatorAndPopulate(channelPaginator, listener);
+          }
+        });
       }
     });
   }
@@ -113,10 +151,12 @@ public class ChannelManager implements ChatClientListener {
   }
 
   public void createChannelWithName(String name, final StatusListener handler) {
+
+    //changed the Type from PUBLIC to PRIVATE
     this.channelsObject
         .channelBuilder()
         .withFriendlyName(name)
-        .withType(ChannelType.PUBLIC)
+        .withType(ChannelType.PRIVATE)
         .build(new CallbackListener<Channel>() {
           @Override
           public void onSuccess(final Channel newChannel) {

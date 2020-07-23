@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.twilio.chat.ChatClient;
 import com.twilio.twiliochat.R;
 import com.twilio.twiliochat.application.AlertDialogHandler;
 import com.twilio.twiliochat.application.SessionManager;
@@ -134,9 +135,16 @@ public class LoginActivity extends AppCompatActivity {
     progressDialog.show();
     progressDialog.setCanceledOnTouchOutside(false);
     progressDialog.setCancelable(false);
+    //added
+    //progressDialog.dismiss();
   }
 
   private void showMainChatActivity() {
+
+    //added as debug
+    progressDialog.dismiss();
+    //worked!!
+
     Intent launchIntent = new Intent();
     launchIntent.setClass(getApplicationContext(), MainChatActivity.class);
     startActivity(launchIntent);

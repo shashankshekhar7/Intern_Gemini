@@ -8,5 +8,5 @@
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/channel_list_left_margin"
     android:text="Channel"
-    android:textColor="@color/twilio_red_text"
+    android:textColor="#990099"
     android:textSize="20sp"/>

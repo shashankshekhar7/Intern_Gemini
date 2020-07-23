@@ -30,6 +30,27 @@
             android:text="@string/username_placeholder"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/menu_username_color"/>
+        <!--new button to switch-->
+        <Button
+            android:id="@+id/switchPrivate"
+            style="@style/MenuHeader"
+            android:layout_width="wrap_content"
+            android:layout_toEndOf="@id/textViewUsername"
+            android:layout_marginStart="15dp"
+            android:background="@android:color/transparent"
+            android:text="USER"
+            android:textColor="#990099"/>
+
+        <Button
+            android:id="@+id/switchPublic"
+            style="@style/MenuHeader"
+            android:layout_width="wrap_content"
+            android:layout_toEndOf="@id/switchPrivate"
+            android:layout_marginStart="15dp"
+            android:background="@android:color/transparent"
+            android:text="ALL"
+            android:textColor="#990099"/>
+
 
         <Button
             android:id="@+id/buttonLogout"
@@ -39,7 +60,7 @@
             android:layout_marginRight="15dp"
             android:background="@android:color/transparent"
             android:text="@string/logout_text"
-            android:textColor="@color/twilio_red_text"/>
+            android:textColor="#990099"/>
     </RelativeLayout>
 
     <ImageView
