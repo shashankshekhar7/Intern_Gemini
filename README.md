@@ -2,6 +2,7 @@
 This is a basic Chat Application for customer support using Twilio's Programmable chat.
 
 To get started
+
 - You'll need to deploy the backend using : https://github.com/TwilioDevEd/twiliochat-node \
 Clone the above repository and follow the instructions in their **README**.
 
@@ -13,6 +14,7 @@ Clone the above repository and follow the instructions in their **README**.
 
 
 **NOTES**
+
 - You can switch between private and public channels using the USER/ALL tab in the navigation bar.
 - Abruptly destroying the program may sometime require you to log out the user from backend. It was fixed but still remains to be tested for all scenarios.
 - On requesting support, a private channel is created for the _user_, and when the _user_ joins the support channel, _agent_ is sent an invitation to join the channel.
